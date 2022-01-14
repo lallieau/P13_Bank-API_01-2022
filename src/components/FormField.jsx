@@ -8,7 +8,6 @@ const Field = styled.div`
 `;
 const Label = styled.label`
   font-weight: bold;
-  text-transform: capitalize;
 `;
 const Input = styled.input`
   padding: 5px;
@@ -19,7 +18,6 @@ const RememberField = styled.div`
 `;
 const RememberLabel = styled.label`
   margin-left: 0.25rem;
-  text-transform: capitalize;
 `;
 const RememberInput = styled.input``;
 
