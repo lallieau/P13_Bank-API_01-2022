@@ -11,10 +11,16 @@ const FooterText = styled.p`
   padding: 0;
 `;
 
+/**
+ * Renders footer with copyright
+ * @returns {JSX}
+ */
 export const Footer = () => {
+  const years = new Date();
+
   return (
     <FooterContent>
-      <FooterText>Copyright 2020 Argent Bank</FooterText>
+      <FooterText>Copyright {years.getUTCFullYear()} Argent Bank</FooterText>
     </FooterContent>
   );
 };

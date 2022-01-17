@@ -1,61 +1,52 @@
 import {Layout} from '../components/Layout';
 import styled from 'styled-components';
 import {AccountItem} from '../components/AccountItem';
+import {user} from '../mock/mockData';
 
 const Button = styled.button`
-  border-color: #00bc77;
-  background-color: #00bc77;
-  color: #fff;
-  font-weight: bold;
+  border-color: ${({theme}) => theme.colors.primary};
+  background-color: ${({theme}) => theme.colors.primary};
+  color: ${({theme}) => theme.colors.tertiary};
+  font-weight: ${({theme}) => theme.fontWeight.bold};
   padding: 10px;
 `;
 
 const Header = styled.div`
-  color: #fff;
+  color: ${({theme}) => theme.colors.tertiary};
   margin-bottom: 2rem;
 `;
 const Title = styled.h1``;
-const SubTitle = styled.h2`
-  border: 0 !important;
-  clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
-  -webkit-clip-path: inset(50%) !important;
-  clip-path: inset(50%) !important; /* 2 */
-  height: 1px !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  padding: 0 !important;
-  position: absolute !important;
-  width: 1px !important;
-  white-space: nowrap !important; /* 3 */
-`;
+const SubTitle = styled.h2``;
 
+/**
+ * Renders User Account Page  // Tony Jarvis
+ * @returns {JSX}
+ */
 export const User = () => {
   return (
     <>
-      <Layout isDarkTheme={true}>
+      <Layout
+        isDarkTheme={true}
+        title="Argent Bank - Profil"
+        description={'Bienvenue sur votre compte Argent Bank'}>
         <Header>
           <Title>
             Welcome back <br />
-            Tony Jarvis!
+            {user.firstName} {user.lastName} !
           </Title>
           <Button>Edit Name</Button>
         </Header>
-        <SubTitle class="sr-only">Accounts</SubTitle>
-        <AccountItem
-          title={'Argent Bank Checking (x8349)'}
-          amount={'$2,082.79'}
-          amountDetails={'Available Balance'}
-        />
-        <AccountItem
-          title={'Argent Bank Savings (x6712)'}
-          amount={'$10,928.42'}
-          amountDetails={'Available Balance'}
-        />
-        <AccountItem
-          title={'Argent Bank Credit Card (x8349)'}
-          amount={'$184.30'}
-          amountDetails={'Current Balance'}
-        />
+        <SubTitle className="sr-only">Accounts</SubTitle>
+        {user.accounts.map((account, index) => {
+          return (
+            <AccountItem
+              key={index}
+              title={account.title}
+              amount={account.amount}
+              amountDetails={account.amountDetails}
+            />
+          );
+        })}
       </Layout>
     </>
   );

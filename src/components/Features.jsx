@@ -13,66 +13,65 @@ const FeaturesContent = styled.section`
   }
 `;
 
-const Title = styled.h2`
-  border: 0 !important;
-  clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
-  -webkit-clip-path: inset(50%) !important;
-  clip-path: inset(50%) !important; /* 2 */
-  height: 1px !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  padding: 0 !important;
-  position: absolute !important;
-  width: 1px !important;
-  white-space: nowrap !important; /* 3 */
-`;
+const Title = styled.h2``;
+const FeatureText = styled.p``;
+
 const FeatureItem = styled.div`
   flex: 1;
   padding: 2.5rem;
 `;
 const FeatureIcon = styled.img`
   width: 100px;
-  border: 10px solid #00bc77;
+  border: 10px solid ${({theme}) => theme.colors.primary};
   border-radius: 50%;
   padding: 1rem;
 `;
 
 const FeatureTitle = styled.h3`
-  color: #222;
-  font-size: 1.25rem;
+  color: ${({theme}) => theme.colors.itemTitle};
+  font-size: ${({theme}) => theme.fontSize.sm};
   font-weight: bold;
   margin-bottom: 0.5rem;
 `;
 
-const FeatureText = styled.p``;
-
+/**
+ * Renders features informations on Home Page
+ * @returns {JSX}
+ */
 export const Features = () => {
+  const features = [
+    {
+      icon: ChatIcon,
+      altIcon: 'Chat Icon',
+      title: 'You are our #1 priority',
+      text: 'Need to talk to a representative? You can get in touch through our 24/7 chat or through a phone call in less than 5 minutes.',
+    },
+    {
+      icon: MoneyIcon,
+      altIcon: 'Money Icon',
+      title: 'More savings means higher rates',
+      text: 'The more you save with us, the higher your interest rate will be!',
+    },
+    {
+      icon: SecurityIcon,
+      altIcon: 'Security Icon',
+      title: 'Security you can trust',
+      text: 'We use top of the line encryption to make sure your data and money is always safe.',
+    },
+  ];
+
   return (
     <FeaturesContent>
-      <Title>Features</Title>
-      <FeatureItem>
-        <FeatureIcon alt="Chat Icon" src={ChatIcon}></FeatureIcon>
-        <FeatureTitle>You are our #1 priority</FeatureTitle>
-        <FeatureText>
-          Need to talk to a representative? You can get in touch through our
-          24/7 chat or through a phone call in less than 5 minutes.
-        </FeatureText>
-      </FeatureItem>
-      <FeatureItem>
-        <FeatureIcon alt="Money Icon" src={MoneyIcon}></FeatureIcon>
-        <FeatureTitle>More savings means higher rates</FeatureTitle>
-        <FeatureText>
-          The more you save with us, the higher your interest rate will be!
-        </FeatureText>
-      </FeatureItem>
-      <FeatureItem>
-        <FeatureIcon alt="Security Icon" src={SecurityIcon}></FeatureIcon>
-        <FeatureTitle>Security you can trust</FeatureTitle>
-        <FeatureText>
-          We use top of the line encryption to make sure your data and money is
-          always safe.
-        </FeatureText>
-      </FeatureItem>
+      <Title className="sr-only">Features</Title>
+      {features.map((feature, index) => {
+        return (
+          <FeatureItem key={index}>
+            <FeatureIcon alt={feature.altIcon} src={feature.icon}></FeatureIcon>
+            <FeatureTitle>{feature.title}</FeatureTitle>
+            <FeatureText>{feature.text}</FeatureText>
+          </FeatureItem>
+        );
+      })}
     </FeaturesContent>
   );
 };

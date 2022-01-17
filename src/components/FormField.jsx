@@ -2,36 +2,51 @@ import styled from 'styled-components';
 
 const Field = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: ${({theme}) => theme.inputDirection.default};
   text-align: left;
   margin-bottom: 1rem;
 `;
 const Label = styled.label`
-  font-weight: bold;
+  font-weight: ${({theme}) => theme.fontWeight.bold};
 `;
 const Input = styled.input`
   padding: 5px;
-  font-size: 1.2rem;
+  font-size: ${({theme}) => theme.fontSize.sm};
 `;
-const RememberField = styled.div`
-  display: flex;
-`;
-const RememberLabel = styled.label`
-  margin-left: 0.25rem;
-`;
-const RememberInput = styled.input``;
 
-export const FormField = ({className, labelFor, label, inputType, inputId}) => {
+/**
+ * Renders different form fields
+ * @param {boolean} rememberField
+ * @param {string} labelFor
+ * @param {string} label
+ * @param {string} inputType
+ * @param {string} inputId
+ * @returns {JSX}
+ */
+export const FormField = ({
+  rememberField,
+  labelFor,
+  label,
+  inputType,
+  inputId,
+}) => {
   return (
     <>
-      {className ? (
-        <RememberField>
-          <RememberInput type={inputType} id={inputId} />
-          <RememberLabel for={labelFor}>{label}</RememberLabel>
-        </RememberField>
+      {rememberField ? (
+        <Field theme={{inputDirection: 'row'}}>
+          <Input type={inputType} id={inputId} />
+          <Label
+            htmlFor={labelFor}
+            style={{
+              marginLeft: '0.25rem',
+              fontWeight: ({theme}) => theme.fontWeight.regular,
+            }}>
+            {label}
+          </Label>
+        </Field>
       ) : (
         <Field>
-          <Label for={labelFor}>{label}</Label>
+          <Label htmlFor={labelFor}>{label}</Label>
           <Input type={inputType} id={inputId} />
         </Field>
       )}

@@ -12,13 +12,20 @@ const SignInContent = styled.section`
 `;
 
 const SignInIcon = styled.i`
-  // font-size: 5rem;
+  font-size: ${({theme}) => theme.fontSize.lg};
 `;
 const Title = styled.h1``;
 
+/**
+ * Renders Sign In page
+ * @returns {JSX}
+ */
 export const SignIn = () => {
   return (
-    <Layout isDarkTheme={true}>
+    <Layout
+      isDarkTheme={true}
+      title="Argent Bank - Sign In"
+      description={'Connectez-vous à votre compte Argent Bank'}>
       <SignInContent>
         <SignInIcon className="fa fa-user-circle" />
         <Title>Sign In</Title>

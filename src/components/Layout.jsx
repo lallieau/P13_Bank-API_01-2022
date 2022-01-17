@@ -1,17 +1,28 @@
 import {NavigationBar} from './NavigationBar';
 import {Footer} from './Footer';
 import styled from 'styled-components';
+import {SEO} from '../utils/SEO';
 
-const DarkMain = styled.main`
-  flex: 1;
-  background-color: #12002b;
-`;
+const Main = styled.main``;
 
-export const Layout = ({children, isDarkTheme}) => {
+/**
+ * Rendering of a global layout architecture, present on each page
+ * @param {string} title
+ * @param {description} description
+ * @param {boolean} isDarkTheme
+ * @param {object} children
+ * @returns {JSX}
+ */
+export const Layout = ({children, isDarkTheme, title, description}) => {
   return (
     <>
+      <SEO title={title} description={description} />
       <NavigationBar />
-      {isDarkTheme ? <DarkMain>{children}</DarkMain> : children}
+      {isDarkTheme ? (
+        <Main className="bg-dark">{children}</Main>
+      ) : (
+        <Main>{children}</Main>
+      )}
       <Footer />
     </>
   );

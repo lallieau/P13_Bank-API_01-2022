@@ -5,7 +5,7 @@ const Account = styled.section`
   justify-content: space-between;
   align-items: center;
   border: 1px solid black;
-  background-color: #fff;
+  background-color: ${({theme}) => theme.colors.tertiary};
   width: 80%;
   margin: 0 auto;
   flex-direction: column;
@@ -29,13 +29,13 @@ const AccountInfos = styled.div`
 const AccountTitle = styled.h3`
   margin: 0;
   padding: 0;
-  font-size: 1rem;
-  font-weight: normal;
+  font-size: ${({theme}) => theme.fontSize.xs};
+  font-weight: ${({theme}) => theme.fontWeight.regular};
 `;
 const Amount = styled.p`
   margin: 0;
-  font-size: 2.5rem;
-  font-weight: bold;
+  font-size: ${({theme}) => theme.fontSize.md};
+  font-weight: ${({theme}) => theme.fontWeight.bold};
 `;
 
 const AmountDetails = styled.p`
@@ -43,14 +43,14 @@ const AmountDetails = styled.p`
 `;
 
 const Button = styled.button`
-  border-color: #00bc77;
-  background-color: #00bc77;
-  color: #fff;
-  font-weight: bold;
+  border-color: ${({theme}) => theme.colors.primary};
+  background-color: ${({theme}) => theme.colors.primary};
+  color: ${({theme}) => theme.colors.tertiary};
+  font-weight: ${({theme}) => theme.fontWeight.bold};
   padding: 8px;
   display: block;
   width: 100%;
-  font-size: 1.1rem;
+  font-size: ${({theme}) => theme.fontSize.xs};
   margin-top: 1rem;
 
   @media (min-width: 720px) {
@@ -58,6 +58,13 @@ const Button = styled.button`
   }
 `;
 
+/**
+ * Renders transaction information on User Page
+ * @param {string} title
+ * @param {string} amount
+ * @param {string} amountDetails
+ * @returns {JSX}
+ */
 export const AccountItem = ({title, amount, amountDetails}) => {
   return (
     <Account>
@@ -66,9 +73,7 @@ export const AccountItem = ({title, amount, amountDetails}) => {
         <Amount>{amount}</Amount>
         <AmountDetails>{amountDetails}</AmountDetails>
       </AccountInfos>
-      <div class="account-content-wrapper cta">
-        <Button>View transactions</Button>
-      </div>
+      <Button>View transactions</Button>
     </Account>
   );
 };

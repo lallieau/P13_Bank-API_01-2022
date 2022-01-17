@@ -9,7 +9,7 @@ function App() {
     <Routes>
       {/* <Route path="*" element={<Error />} /> */}
       <Route path="/" index element={<Home />} />
-      <Route path="/sign-in" element={<SignIn />} />
+      <Route path="/login" element={<SignIn />} />
       <Route path="/user" element={<User />} />
     </Routes>
   );

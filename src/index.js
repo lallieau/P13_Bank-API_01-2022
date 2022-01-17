@@ -1,13 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from 'react-router-dom';
+import {GlobalStyle} from './utils/style/GlobalStyle';
+import {ThemeProvider as StyleComponentThemeProvider} from 'styled-components';
+import {theme} from './utils/style/theme';
+
+const ThemeProvider = ({children, theme}) => {
+  return (
+    <StyleComponentThemeProvider theme={theme}>
+      <>
+        <GlobalStyle />
+        {children}
+      </>
+    </StyleComponentThemeProvider>
+  );
+};
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
   </BrowserRouter>,
   document.getElementById('root'),
 );
