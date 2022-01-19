@@ -19,15 +19,6 @@ html {
     min-height: 100vh;
   }
   
-  .main {
-    flex: 1;
-  }
-  
-  .bg-dark {
-    flex: 1;
-    background-color: ${({theme}) => theme.colors.darkBackground};
-  }
-  
   .sr-only {
     border: 0 !important;
     clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */

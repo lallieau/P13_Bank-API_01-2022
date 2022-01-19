@@ -3,7 +3,11 @@ import {Footer} from './Footer';
 import styled from 'styled-components';
 import {SEO} from '../utils/SEO';
 
-const Main = styled.main``;
+const Main = styled.main`
+  background-color: ${({darkTheme, theme}) =>
+    darkTheme ? theme.colors.darkBackground : theme.colors.tertiary};
+  flex: 1;
+`;
 
 /**
  * Rendering of a global layout architecture, present on each page
@@ -18,11 +22,7 @@ export const Layout = ({children, isDarkTheme, title, description}) => {
     <>
       <SEO title={title} description={description} />
       <NavigationBar />
-      {isDarkTheme ? (
-        <Main className="bg-dark">{children}</Main>
-      ) : (
-        <Main>{children}</Main>
-      )}
+      <Main darkTheme={isDarkTheme}>{children}</Main>
       <Footer />
     </>
   );
