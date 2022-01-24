@@ -2,6 +2,11 @@ import {Layout} from '../components/Layout';
 import styled from 'styled-components';
 import {AccountItem} from '../components/AccountItem';
 import {user} from '../mock/mockData';
+import {useSelector, useStore} from 'react-redux';
+import {selectToken, selectUser} from '../utils/selectors';
+import {fetchUser} from '../utils/fetchData/fetchUser';
+import {useEffect} from 'react';
+import {Navigate} from 'react-router-dom';
 
 const Button = styled.button`
   border-color: ${({theme}) => theme.colors.primary};
@@ -23,6 +28,17 @@ const SubTitle = styled.h2``;
  * @returns {JSX}
  */
 export const User = () => {
+  const {isLoggedIn, token} = useSelector(selectToken);
+  const {isLoading, isError} = useSelector(selectUser);
+  const {firstName, lastName} = useSelector(selectUser).user;
+  const store = useStore();
+
+  useEffect(() => {
+    fetchUser(store, token);
+  }, [store, token]);
+
+  if (!isLoggedIn) return <Navigate to="/" />;
+
   return (
     <>
       <Layout
@@ -32,7 +48,7 @@ export const User = () => {
         <Header>
           <Title>
             Welcome back <br />
-            {user.firstName} {user.lastName} !
+            {firstName} {lastName} !
           </Title>
           <Button>Edit Name</Button>
         </Header>
@@ -47,6 +63,8 @@ export const User = () => {
             />
           );
         })}
+        {isLoading && 'Loading...'}
+        <p>{isError}</p>
       </Layout>
     </>
   );

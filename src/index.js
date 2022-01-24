@@ -6,6 +6,8 @@ import {BrowserRouter} from 'react-router-dom';
 import {GlobalStyle} from './utils/style/GlobalStyle';
 import {ThemeProvider as StyleComponentThemeProvider} from 'styled-components';
 import {theme} from './utils/style/theme';
+import {store} from './utils/store';
+import {Provider} from 'react-redux';
 
 const ThemeProvider = ({children, theme}) => {
   return (
@@ -19,11 +21,13 @@ const ThemeProvider = ({children, theme}) => {
 };
 
 ReactDOM.render(
-  <BrowserRouter>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
-  </BrowserRouter>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </BrowserRouter>
+  </Provider>,
   document.getElementById('root'),
 );
 
