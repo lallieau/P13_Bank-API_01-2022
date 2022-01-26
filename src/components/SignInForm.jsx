@@ -7,7 +7,7 @@ import fetchToken from '../utils/fetchData/fetchToken';
 import {Navigate} from 'react-router-dom';
 
 const Form = styled.form``;
-const Button = styled(Link)`
+const Button = styled.button`
   display: block;
   width: 100%;
   padding: 8px;
@@ -43,10 +43,10 @@ export const SignInForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(true);
+
   const store = useStore();
 
   useEffect(() => {
-    // if user chose to be remembered then retrieve username from local storage
     const rememberMe = localStorage.getItem('rememberMe') === 'true';
     const user = rememberMe ? localStorage.getItem('user') : '';
     setEmail(user);
@@ -55,14 +55,12 @@ export const SignInForm = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    // if user chooses to be remembered then save to local storage
     localStorage.setItem('rememberMe', rememberMe);
     localStorage.setItem('user', rememberMe ? email : '');
-    // get authentication 'token' from API
     fetchToken(store, email, password);
   };
 
-  if (isLoggedIn) return <Navigate to="/user/profile" replace={true} />;
+  if (isLoggedIn) return <Navigate to="/user/profile" />;
 
   return (
     <Form onSubmit={handleSubmit}>
