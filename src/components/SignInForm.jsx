@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import {Link} from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import {useSelector, useStore} from 'react-redux';
-import {selectToken} from '../utils/selectors';
-import fetchToken from '../utils/fetchData/fetchToken';
+import {selectToken} from '../utils/store';
+import {fetchToken} from '../utils/fetchData/fetchToken';
 import {Navigate} from 'react-router-dom';
+import {LoadingIcon} from './LoaderIcon';
 
 const Form = styled.form``;
 const Button = styled.button`
@@ -60,7 +60,7 @@ export const SignInForm = () => {
     fetchToken(store, email, password);
   };
 
-  if (isLoggedIn) return <Navigate to="/user/profile" />;
+  if (isLoggedIn) return <Navigate to="/user" />;
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -103,7 +103,7 @@ export const SignInForm = () => {
           Remember me
         </Label>
       </Field>
-      {isLoading && 'Loading...'}
+      {isLoading && <LoadingIcon />}
       <p>{isError}</p>
       <Button type="submit" disabled={isLoading ? true : false}>
         Sign In

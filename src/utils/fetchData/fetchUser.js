@@ -1,43 +1,16 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {userProfile} from '../../business/users';
+import {fetchingUser, resolvedUser, rejectedUser} from '../store';
 
 export const fetchUser = async (store, token) => {
-  store.dispatch(fetching());
+  store.dispatch(fetchingUser());
+
   try {
-    const response = await fetch('http://localhost:3001/api/v1/user/profile', {
-      method: 'POST',
-      headers: {Authorization: `Bearer ${token}`},
-      body: {},
-    });
-    const user = await response.data.body;
-    store.dispatch(resolved(user));
+    const {
+      body: {user},
+    } = await userProfile(token);
+
+    store.dispatch(resolvedUser(user));
   } catch (error) {
-    store.dispatch(rejected(error.response.data.message));
+    store.dispatch(rejectedUser(error.response.data.message));
   }
 };
-
-const userSlice = createSlice({
-  name: 'user',
-  initialState: {
-    isLoading: false,
-    user: {},
-    isError: '',
-  },
-  reducers: {
-    fetching: draft => {
-      draft.isLoading = true;
-    },
-    resolved: (draft, action) => {
-      draft.isLoading = false;
-      draft.user = action.payload;
-      draft.isError = '';
-    },
-    rejected: (draft, action) => {
-      draft.isLoading = false;
-      draft.user = {};
-      draft.isError = action.payload;
-    },
-  },
-});
-
-export const {fetching, resolved, rejected} = userSlice.actions;
-export default userSlice.reducer;
