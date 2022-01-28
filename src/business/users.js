@@ -22,3 +22,16 @@ export const userProfile = async token => {
   });
   return response.json();
 };
+
+export const updateUserName = async (token, firstName, lastName) => {
+  const response = await fetcher(`${BASE_URL}${USER}${USER_ROUTES.profile}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({firstName, lastName}),
+  });
+
+  return response.json();
+};

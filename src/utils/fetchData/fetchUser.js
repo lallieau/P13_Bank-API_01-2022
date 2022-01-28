@@ -6,10 +6,10 @@ export const fetchUser = async (store, token) => {
 
   try {
     const {
-      body: {user},
+      body: {firstName, lastName},
     } = await userProfile(token);
 
-    store.dispatch(resolvedUser(user));
+    store.dispatch(resolvedUser({firstName, lastName}));
   } catch (error) {
     store.dispatch(rejectedUser(error.response.data.message));
   }

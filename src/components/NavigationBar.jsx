@@ -1,3 +1,7 @@
+import {useSelector, useDispatch} from 'react-redux';
+import {selectToken} from '../utils/store';
+import {resetToken, resetUser} from '../utils/store';
+
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../assets/argentBankLogo.png';
@@ -47,16 +51,30 @@ const Icon = styled.i`
  * @returns {JSX}
  */
 export const NavigationBar = () => {
+  const isLoggedIn = useSelector(selectToken).isLoggedIn;
+  const dispatch = useDispatch();
   return (
     <Nav>
       <NavLinkLogo to="/">
         <Image src={logo} alt="logo Argent Bank"></Image>
         <Title className="sr-only">Argent Bank</Title>
       </NavLinkLogo>
-      <NavLinkItem to="/login">
-        <Icon className="fa fa-user-circle" />
-        Sign In
-      </NavLinkItem>
+      {isLoggedIn ? (
+        <NavLinkItem
+          to="/"
+          onClick={() => {
+            dispatch(resetUser());
+            dispatch(resetToken());
+          }}>
+          <Icon className="fa fa-user-circle" />
+          Logout
+        </NavLinkItem>
+      ) : (
+        <NavLinkItem to="/login">
+          <Icon className="fa fa-user-circle" />
+          Sign In
+        </NavLinkItem>
+      )}
     </Nav>
   );
 };

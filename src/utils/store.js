@@ -39,6 +39,7 @@ const userSlice = createSlice({
     isLoading: false,
     user: {},
     isError: '',
+    isUpdated: false,
   },
   reducers: {
     fetchingUser: draft => {
@@ -54,14 +55,41 @@ const userSlice = createSlice({
       draft.user = {};
       draft.isError = action.payload;
     },
+    resetUser: draft => {
+      draft.isLoading = false;
+      draft.isUpdated = false;
+      draft.user = {};
+      draft.isError = '';
+    },
+    updateSending: draft => {
+      draft.isLoading = true;
+    },
+    updateSuccess: (draft, action) => {
+      draft.isLoading = false;
+      draft.isUpdated = true;
+      draft.user = action.payload;
+      draft.isError = '';
+    },
+    updateFail: draft => {
+      draft.isLoading = false;
+      draft.isUpdated = false;
+    },
   },
 });
 
 export const {fetchingToken, resolvedToken, rejectedToken, resetToken} =
   tokenSlice.actions;
-// export const tokenReducer = tokenSlice.reducer;
-export const {fetchingUser, resolvedUser, rejectedUser} = userSlice.actions;
-// export const userReducer = userSlice.reducer;
+
+export const {
+  fetchingUser,
+  resolvedUser,
+  rejectedUser,
+  resetUser,
+  updateSending,
+  updateSuccess,
+  updateFail,
+} = userSlice.actions;
+
 export const store = configureStore({
   reducer: {
     token: tokenSlice.reducer,
