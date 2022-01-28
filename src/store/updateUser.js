@@ -1,5 +1,5 @@
-import {updateUserName} from '../../business/users';
-import {updateSending, updateSuccess, updateFail} from '../store';
+import {updateUserName} from '../business/users';
+import {updateSending, updateSuccess, updateFail} from './store';
 
 export const updateUser = async (store, token, newFirstName, newLastName) => {
   store.dispatch(updateSending());

@@ -1,6 +1,6 @@
 import {useSelector, useDispatch} from 'react-redux';
-import {selectToken} from '../utils/store';
-import {resetToken, resetUser} from '../utils/store';
+import {selectToken} from '../store/store';
+import {resetToken, resetUser} from '../store/store';
 
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';

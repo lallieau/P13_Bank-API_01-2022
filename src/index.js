@@ -6,7 +6,7 @@ import {BrowserRouter} from 'react-router-dom';
 import {GlobalStyle} from './utils/style/GlobalStyle';
 import {ThemeProvider as StyleComponentThemeProvider} from 'styled-components';
 import {theme} from './utils/style/theme';
-import {store} from './utils/store';
+import {store} from './store/store';
 import {Provider} from 'react-redux';
 
 const ThemeProvider = ({children, theme}) => {

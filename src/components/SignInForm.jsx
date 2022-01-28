@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import {useState, useEffect} from 'react';
 import {useSelector, useStore} from 'react-redux';
-import {selectToken} from '../utils/store';
-import {fetchToken} from '../utils/fetchData/fetchToken';
+import {selectToken} from '../store/store';
+import {getToken} from '../store/getToken';
 import {Navigate} from 'react-router-dom';
 import {LoadingIcon} from './LoaderIcon';
+import {Error} from '../pages/Error';
 
 const Form = styled.form``;
 const Button = styled.button`
@@ -57,7 +58,7 @@ export const SignInForm = () => {
     event.preventDefault();
     localStorage.setItem('rememberMe', rememberMe);
     localStorage.setItem('user', rememberMe ? email : '');
-    fetchToken(store, email, password);
+    getToken(store, email, password);
   };
 
   if (isLoggedIn) return <Navigate to="/user" />;
@@ -104,7 +105,7 @@ export const SignInForm = () => {
         </Label>
       </Field>
       {isLoading && <LoadingIcon />}
-      <p>{isError}</p>
+      {isError && <Error />}
       <Button type="submit" disabled={isLoading ? true : false}>
         Sign In
       </Button>

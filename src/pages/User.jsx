@@ -3,12 +3,13 @@ import styled from 'styled-components';
 import {AccountItem} from '../components/AccountItem';
 import {accounts} from '../mock/mockData';
 import {useSelector, useStore} from 'react-redux';
-import {selectToken, selectUser} from '../utils/store';
-import {fetchUser} from '../utils/fetchData/fetchUser';
+import {selectToken, selectUser} from '../store/store';
+import {getUser} from '../store/getUser';
 import {useEffect, useState} from 'react';
 import {Navigate} from 'react-router-dom';
 import {LoadingIcon} from '../components/LoaderIcon';
-import {updateUser} from '../utils/fetchData/updateUser';
+import {updateUser} from '../store/updateUser';
+import {Error} from './Error';
 
 const Button = styled.button`
   border-color: ${({theme}) => theme.colors.primary};
@@ -28,9 +29,15 @@ const Title = styled.h1`
 `;
 const SubTitle = styled.h2``;
 const Form = styled.form`
+  width: 80vw;
+  margin: 0 auto;
+`;
+const Fields = styled.div`
   display: flex;
-  // flex-direction: column;
   justify-content: center;
+  width: 80%;
+  margin: 0 auto;
+  flex-direction: column;
 `;
 const Field = styled.div`
   display: flex;
@@ -50,6 +57,12 @@ const Input = styled.input`
   font-size: ${({theme}) => theme.fontSize.sm};
 `;
 
+const Message = styled.p`
+  font-weight: ${({theme}) => theme.fontWeight.bold};
+  font-size: ${({theme}) => theme.fontSize.xs};
+  margin: 0;
+`;
+
 /**
  * Renders User Account Page  // Tony Jarvis
  * @returns {JSX}
@@ -66,7 +79,7 @@ export const User = () => {
   const [inputOk, setInputOk] = useState(false);
 
   useEffect(() => {
-    fetchUser(store, token);
+    getUser(store, token);
   }, [store, token]);
 
   const handleSubmit = async event => {
@@ -94,30 +107,33 @@ export const User = () => {
               <Title>
                 Please edit your name <br />
                 <Form onSubmit={handleSubmit}>
-                  <Field>
-                    <Label htmlFor="firstName">FirstName</Label>
-                    <Input
-                      type="text"
-                      id="firstName"
-                      onChange={e => {
-                        setNewFirstName(e.target.value);
-                      }}
-                      disabled={isLoading ? true : false}
-                    />
-                  </Field>
-                  <Field>
-                    <Label htmlFor="lastName">LastName</Label>
-                    <Input
-                      type="text"
-                      id="lastName"
-                      onChange={e => {
-                        setNewLastName(e.target.value);
-                      }}
-                      disabled={isLoading ? true : false}
-                    />
-                  </Field>
+                  <Fields>
+                    <Field>
+                      <Label htmlFor="firstName">FirstName</Label>
+                      <Input
+                        type="text"
+                        id="firstName"
+                        onChange={e => {
+                          setNewFirstName(e.target.value);
+                        }}
+                        disabled={isLoading ? true : false}
+                      />
+                    </Field>
+                    <Field>
+                      <Label htmlFor="lastName">LastName</Label>
+                      <Input
+                        type="text"
+                        id="lastName"
+                        onChange={e => {
+                          setNewLastName(e.target.value);
+                        }}
+                        disabled={isLoading ? true : false}
+                      />
+                    </Field>
+                  </Fields>
+
                   {submitted && !inputOk && (
-                    <p delay="2000">Please enter your full name.</p>
+                    <Message delay="2000">Please enter your full name.</Message>
                   )}
                   <Button type="submit" disabled={isLoading ? true : false}>
                     Save
@@ -159,7 +175,7 @@ export const User = () => {
           );
         })}
         {isLoading && <LoadingIcon />}
-        <p>{isError}</p>
+        {isError && <Error />}
       </Layout>
     </>
   );
