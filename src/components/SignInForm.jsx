@@ -50,6 +50,7 @@ export const SignInForm = () => {
   useEffect(() => {
     const rememberMe = localStorage.getItem('rememberMe') === 'true';
     const user = rememberMe ? localStorage.getItem('user') : '';
+
     setEmail(user);
     setRememberMe(rememberMe);
   }, []);
@@ -70,6 +71,7 @@ export const SignInForm = () => {
         <Input
           type="text"
           id="username"
+          value={email}
           onChange={e => {
             setEmail(e.target.value);
           }}
@@ -93,6 +95,7 @@ export const SignInForm = () => {
         <Input
           type="checkbox"
           id="remember-me"
+          checked={rememberMe}
           onChange={() => setRememberMe(!rememberMe)}
         />
         <Label
