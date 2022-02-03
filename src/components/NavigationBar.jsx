@@ -46,12 +46,14 @@ const Icon = styled.i`
   margin-right: 0.5rem;
 `;
 
+const UserIsLoggedIn = styled.div``;
+
 /**
  * Renders the Header Navigation Bar
  * @returns {JSX}
  */
 export const NavigationBar = () => {
-  const isLoggedIn = useSelector(selectToken).isLoggedIn;
+  const {isLoggedIn} = useSelector(selectToken);
   const dispatch = useDispatch();
   return (
     <Nav>
@@ -60,15 +62,21 @@ export const NavigationBar = () => {
         <Title className="sr-only">Argent Bank</Title>
       </NavLinkLogo>
       {isLoggedIn ? (
-        <NavLinkItem
-          to="/"
-          onClick={() => {
-            dispatch(resetUser());
-            dispatch(resetToken());
-          }}>
-          <Icon className="fa fa-user-circle" />
-          Logout
-        </NavLinkItem>
+        <UserIsLoggedIn>
+          <NavLinkItem
+            to="/"
+            onClick={() => {
+              dispatch(resetUser());
+              dispatch(resetToken());
+            }}>
+            <Icon className="fa fa-user-circle" />
+            Logout
+          </NavLinkItem>
+          <NavLinkItem to="/user/profile">
+            <Icon className="fa fa-user-circle" />
+            Profil
+          </NavLinkItem>
+        </UserIsLoggedIn>
       ) : (
         <NavLinkItem to="/login">
           <Icon className="fa fa-user-circle" />

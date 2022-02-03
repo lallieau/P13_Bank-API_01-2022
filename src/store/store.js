@@ -8,6 +8,18 @@ const tokenSlice = createSlice({
     token: null,
     isError: '',
   },
+  // () => {
+  // let draft = {
+  //   isLoading: false,
+  //   isLoggedIn: false,
+  //   isError: '',
+  // };
+  // draft.token = localStorage.getItem('token');
+  // if (draft.token) {
+  //   draft.isLoggedIn = true;
+  // }
+  // return draft;
+  // },
   reducers: {
     fetchingToken: draft => {
       draft.isLoading = true;

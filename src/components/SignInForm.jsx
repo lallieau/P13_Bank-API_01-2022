@@ -59,10 +59,11 @@ export const SignInForm = () => {
     event.preventDefault();
     localStorage.setItem('rememberMe', rememberMe);
     localStorage.setItem('user', rememberMe ? email : '');
+
     getToken(store, email, password);
   };
 
-  if (isLoggedIn) return <Navigate to="/user" />;
+  if (isLoggedIn) return <Navigate to="/user/profile" />;
 
   return (
     <Form onSubmit={handleSubmit}>
