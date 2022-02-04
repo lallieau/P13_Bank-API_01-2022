@@ -6,7 +6,6 @@ import {useSelector, useStore} from 'react-redux';
 import {selectAuth} from '../store/store';
 import {getUser} from '../store/getUser';
 import {useEffect, useState} from 'react';
-import {Navigate} from 'react-router-dom';
 import {LoadingIcon} from '../components/LoaderIcon';
 import {updateUser} from '../store/updateUser';
 import {Error} from './Error';
@@ -68,8 +67,7 @@ const Message = styled.p`
  * @returns {JSX}
  */
 export const User = () => {
-  const {isLoggedIn, token, isLoading, isError, user} = useSelector(selectAuth);
-  // const {isLoading, isError, user} = useSelector(selectUser);
+  const {token, isLoading, isError, user} = useSelector(selectAuth);
   const store = useStore();
   // local states
   const [newFirstName, setNewFirstName] = useState('');
@@ -93,8 +91,6 @@ export const User = () => {
       setCanEdit(false);
     }
   };
-
-  if (!isLoggedIn) return <Navigate to="/" />;
 
   return (
     <>

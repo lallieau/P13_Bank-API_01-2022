@@ -3,7 +3,6 @@ import {useState, useEffect} from 'react';
 import {useSelector, useStore} from 'react-redux';
 import {selectAuth} from '../store/store';
 import {getToken} from '../store/getToken';
-import {Navigate} from 'react-router-dom';
 import {LoadingIcon} from './LoaderIcon';
 import {Error} from '../pages/Error';
 
@@ -39,7 +38,7 @@ const Input = styled.input`
  * @returns {JSX}
  */
 export const SignInForm = () => {
-  const {isLoading, isLoggedIn, isError} = useSelector(selectAuth);
+  const {isLoading, isError} = useSelector(selectAuth);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -62,8 +61,6 @@ export const SignInForm = () => {
 
     getToken(store, email, password);
   };
-
-  if (isLoggedIn) return <Navigate to="/user/profile" />;
 
   return (
     <Form onSubmit={handleSubmit}>
