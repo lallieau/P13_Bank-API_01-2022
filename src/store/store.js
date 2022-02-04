@@ -1,27 +1,17 @@
 import {configureStore, createSlice} from '@reduxjs/toolkit';
 
-const tokenSlice = createSlice({
-  name: 'token',
+const authSlice = createSlice({
+  name: 'auth',
   initialState: {
     isLoading: false,
-    isLoggedIn: false,
     token: null,
+    isLoggedIn: false,
+    user: {},
     isError: '',
+    isUpdated: false,
   },
-  // () => {
-  // let draft = {
-  //   isLoading: false,
-  //   isLoggedIn: false,
-  //   isError: '',
-  // };
-  // draft.token = localStorage.getItem('token');
-  // if (draft.token) {
-  //   draft.isLoggedIn = true;
-  // }
-  // return draft;
-  // },
   reducers: {
-    fetchingToken: draft => {
+    fetching: draft => {
       draft.isLoading = true;
     },
     resolvedToken: (draft, action) => {
@@ -36,27 +26,6 @@ const tokenSlice = createSlice({
       draft.token = null;
       draft.isError = action.payload;
     },
-    resetToken: draft => {
-      draft.isLoading = false;
-      draft.isLoggedIn = false;
-      draft.token = null;
-      draft.isError = '';
-    },
-  },
-});
-
-const userSlice = createSlice({
-  name: 'user',
-  initialState: {
-    isLoading: false,
-    user: {},
-    isError: '',
-    isUpdated: false,
-  },
-  reducers: {
-    fetchingUser: draft => {
-      draft.isLoading = true;
-    },
     resolvedUser: (draft, action) => {
       draft.isLoading = false;
       draft.user = action.payload;
@@ -67,14 +36,13 @@ const userSlice = createSlice({
       draft.user = {};
       draft.isError = action.payload;
     },
-    resetUser: draft => {
+    resetAuth: draft => {
       draft.isLoading = false;
       draft.isUpdated = false;
+      draft.token = null;
+      draft.isLoggedIn = false;
       draft.user = {};
       draft.isError = '';
-    },
-    updateSending: draft => {
-      draft.isLoading = true;
     },
     updateSuccess: (draft, action) => {
       draft.isLoading = false;
@@ -89,25 +57,22 @@ const userSlice = createSlice({
   },
 });
 
-export const {fetchingToken, resolvedToken, rejectedToken, resetToken} =
-  tokenSlice.actions;
-
 export const {
-  fetchingUser,
+  fetching,
+  resolvedToken,
+  rejectedToken,
   resolvedUser,
   rejectedUser,
-  resetUser,
-  updateSending,
+  resetAuth,
   updateSuccess,
   updateFail,
-} = userSlice.actions;
+} = authSlice.actions;
 
 export const store = configureStore({
   reducer: {
-    token: tokenSlice.reducer,
-    user: userSlice.reducer,
+    auth: authSlice.reducer,
   },
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(),
 });
 
-export const selectToken = state => state.token;
-export const selectUser = state => state.user;
+export const selectAuth = state => state.auth;

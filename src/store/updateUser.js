@@ -1,8 +1,8 @@
 import {updateUserName} from '../business/users';
-import {updateSending, updateSuccess, updateFail} from './store';
+import {fetching, updateSuccess, updateFail} from './store';
 
 export const updateUser = async (store, token, newFirstName, newLastName) => {
-  store.dispatch(updateSending());
+  store.dispatch(fetching());
 
   try {
     const {

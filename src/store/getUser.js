@@ -1,8 +1,8 @@
 import {userProfile} from '../business/users';
-import {fetchingUser, resolvedUser, rejectedUser} from './store';
+import {fetching, resolvedUser, rejectedUser} from './store';
 
 export const getUser = async (store, token) => {
-  store.dispatch(fetchingUser());
+  store.dispatch(fetching());
 
   try {
     const {

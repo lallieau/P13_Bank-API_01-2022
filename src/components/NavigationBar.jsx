@@ -1,6 +1,6 @@
 import {useSelector, useDispatch} from 'react-redux';
-import {selectToken} from '../store/store';
-import {resetToken, resetUser} from '../store/store';
+import {selectAuth} from '../store/store';
+import {resetAuth} from '../store/store';
 
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
@@ -53,7 +53,7 @@ const UserIsLoggedIn = styled.div``;
  * @returns {JSX}
  */
 export const NavigationBar = () => {
-  const {isLoggedIn} = useSelector(selectToken);
+  const {isLoggedIn} = useSelector(selectAuth);
   const dispatch = useDispatch();
   return (
     <Nav>
@@ -66,8 +66,7 @@ export const NavigationBar = () => {
           <NavLinkItem
             to="/"
             onClick={() => {
-              dispatch(resetUser());
-              dispatch(resetToken());
+              dispatch(resetAuth());
             }}>
             <Icon className="fa fa-user-circle" />
             Logout

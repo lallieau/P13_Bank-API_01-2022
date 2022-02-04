@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {useState, useEffect} from 'react';
 import {useSelector, useStore} from 'react-redux';
-import {selectToken} from '../store/store';
+import {selectAuth} from '../store/store';
 import {getToken} from '../store/getToken';
 import {Navigate} from 'react-router-dom';
 import {LoadingIcon} from './LoaderIcon';
@@ -39,7 +39,7 @@ const Input = styled.input`
  * @returns {JSX}
  */
 export const SignInForm = () => {
-  const {isLoading, isLoggedIn, isError} = useSelector(selectToken);
+  const {isLoading, isLoggedIn, isError} = useSelector(selectAuth);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

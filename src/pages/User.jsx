@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {AccountItem} from '../components/AccountItem';
 import {accounts} from '../mock/mockData';
 import {useSelector, useStore} from 'react-redux';
-import {selectToken, selectUser} from '../store/store';
+import {selectAuth} from '../store/store';
 import {getUser} from '../store/getUser';
 import {useEffect, useState} from 'react';
 import {Navigate} from 'react-router-dom';
@@ -68,8 +68,8 @@ const Message = styled.p`
  * @returns {JSX}
  */
 export const User = () => {
-  const {isLoggedIn, token} = useSelector(selectToken);
-  const {isLoading, isError, user} = useSelector(selectUser);
+  const {isLoggedIn, token, isLoading, isError, user} = useSelector(selectAuth);
+  // const {isLoading, isError, user} = useSelector(selectUser);
   const store = useStore();
   // local states
   const [newFirstName, setNewFirstName] = useState('');
@@ -86,6 +86,7 @@ export const User = () => {
     event.preventDefault();
     setInputOk(false);
     setSubmitted(true);
+
     if (newFirstName.trim() !== '' && newLastName.trim() !== '') {
       await updateUser(store, token, newFirstName, newLastName);
       setInputOk(true);

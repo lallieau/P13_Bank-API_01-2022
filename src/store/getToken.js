@@ -1,8 +1,8 @@
 import {login} from '../business/users';
-import {fetchingToken, resolvedToken, rejectedToken} from './store';
+import {fetching, resolvedToken, rejectedToken} from './store';
 
 export const getToken = async (store, email, password) => {
-  store.dispatch(fetchingToken());
+  store.dispatch(fetching());
 
   try {
     const {
