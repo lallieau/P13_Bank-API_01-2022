@@ -1,4 +1,15 @@
-import {configureStore, createSlice} from '@reduxjs/toolkit';
+import {configureStore, createSlice, combineReducers} from '@reduxjs/toolkit';
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 const authSlice = createSlice({
   name: 'auth',
@@ -68,11 +79,35 @@ export const {
   updateFail,
 } = authSlice.actions;
 
-export const store = configureStore({
-  reducer: {
-    auth: authSlice.reducer,
-  },
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(),
-});
+// export const store = configureStore({
+//   reducer: {
+//     auth: authSlice.reducer,
+//   },
+//   // middleware: getDefaultMiddleware => getDefaultMiddleware().concat(),
+// });
 
 export const selectAuth = state => state.auth;
+
+const rootReducer = combineReducers({
+  auth: authSlice.reducer,
+});
+
+const persistConfig = {
+  key: 'root',
+  version: 1,
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+});
+
+export const persistor = persistStore(store);

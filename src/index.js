@@ -6,8 +6,9 @@ import {BrowserRouter} from 'react-router-dom';
 import {GlobalStyle} from './utils/style/GlobalStyle';
 import {ThemeProvider as StyleComponentThemeProvider} from 'styled-components';
 import {theme} from './utils/style/theme';
-import {store} from './store/store';
+import {store, persistor} from './store/store';
 import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
 
 const ThemeProvider = ({children, theme}) => {
   return (
@@ -22,11 +23,13 @@ const ThemeProvider = ({children, theme}) => {
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
-    </BrowserRouter>
+    <PersistGate loading={null} persistor={persistor}>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </BrowserRouter>
+    </PersistGate>
   </Provider>,
   document.getElementById('root'),
 );
