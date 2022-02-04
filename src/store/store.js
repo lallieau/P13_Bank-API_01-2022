@@ -11,6 +11,15 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
+/**
+ * Unify actions and reducers with Redux-Toolkit slices
+ * instead of createAction & createReducer
+ * create actions & reducer logic regarding user retrieval/updating
+ * @function authSlice
+ * @param {object} state
+ * @param {string} action
+ * @returns {object} new state
+ */
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
@@ -78,13 +87,6 @@ export const {
   updateSuccess,
   updateFail,
 } = authSlice.actions;
-
-// export const store = configureStore({
-//   reducer: {
-//     auth: authSlice.reducer,
-//   },
-//   // middleware: getDefaultMiddleware => getDefaultMiddleware().concat(),
-// });
 
 export const selectAuth = state => state.auth;
 

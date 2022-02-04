@@ -63,117 +63,118 @@ const Message = styled.p`
 `;
 
 /**
- * Renders User Account Page  // Tony Jarvis
+ * Renders User Account Page
  * @returns {JSX}
  */
 export const User = () => {
   const {token, isLoading, isError, user} = useSelector(selectAuth);
   const store = useStore();
-  // local states
+
+  const [handleUserEdit, setHandleUserEdit] = useState(false);
+
   const [newFirstName, setNewFirstName] = useState('');
   const [newLastName, setNewLastName] = useState('');
-  const [canEdit, setCanEdit] = useState(false);
+
   const [submitted, setSubmitted] = useState(false);
-  const [inputOk, setInputOk] = useState(false);
+  const [inputValueIsOk, setInputValueIsOk] = useState(false);
+
+  const handleSubmit = async event => {
+    event.preventDefault();
+    setInputValueIsOk(false);
+    setSubmitted(true);
+
+    if (newFirstName.trim() !== '' && newLastName.trim() !== '') {
+      await updateUser(store, token, newFirstName, newLastName);
+      setInputValueIsOk(true);
+      setHandleUserEdit(false);
+    }
+  };
 
   useEffect(() => {
     getUser(store, token);
   }, [store, token]);
 
-  const handleSubmit = async event => {
-    event.preventDefault();
-    setInputOk(false);
-    setSubmitted(true);
-
-    if (newFirstName.trim() !== '' && newLastName.trim() !== '') {
-      await updateUser(store, token, newFirstName, newLastName);
-      setInputOk(true);
-      setCanEdit(false);
-    }
-  };
-
   return (
-    <>
-      <Layout
-        isDarkTheme={true}
-        title="Argent Bank - Profil"
-        description={'Bienvenue sur votre compte Argent Bank'}>
-        <Header>
-          {canEdit ? (
-            <>
-              <Title>
-                Please edit your name <br />
-                <Form onSubmit={handleSubmit}>
-                  <Fields>
-                    <Field>
-                      <Label htmlFor="firstName">FirstName</Label>
-                      <Input
-                        type="text"
-                        id="firstName"
-                        onChange={e => {
-                          setNewFirstName(e.target.value);
-                        }}
-                        disabled={isLoading ? true : false}
-                      />
-                    </Field>
-                    <Field>
-                      <Label htmlFor="lastName">LastName</Label>
-                      <Input
-                        type="text"
-                        id="lastName"
-                        onChange={e => {
-                          setNewLastName(e.target.value);
-                        }}
-                        disabled={isLoading ? true : false}
-                      />
-                    </Field>
-                  </Fields>
+    <Layout
+      isDarkTheme={true}
+      title="Argent Bank - Profil"
+      description={'Bienvenue sur votre compte Argent Bank'}>
+      <Header>
+        {!handleUserEdit ? (
+          <>
+            <Title>
+              Welcome back <br />
+              {user.firstName} {user.lastName} !
+            </Title>
+            <Button
+              onClick={() => {
+                setHandleUserEdit(true);
+              }}>
+              Edit Name
+            </Button>
+          </>
+        ) : (
+          <>
+            <Title>
+              Please edit your name <br />
+            </Title>
+            <Form onSubmit={handleSubmit}>
+              <Fields>
+                <Field>
+                  <Label htmlFor="firstName">FirstName</Label>
+                  <Input
+                    type="text"
+                    id="firstName"
+                    onChange={e => {
+                      setNewFirstName(e.target.value);
+                    }}
+                    disabled={isLoading ? true : false}
+                  />
+                </Field>
+                <Field>
+                  <Label htmlFor="lastName">LastName</Label>
+                  <Input
+                    type="text"
+                    id="lastName"
+                    onChange={e => {
+                      setNewLastName(e.target.value);
+                    }}
+                    disabled={isLoading ? true : false}
+                  />
+                </Field>
+              </Fields>
 
-                  {submitted && !inputOk && (
-                    <Message delay="2000">Please enter your full name.</Message>
-                  )}
-                  <Button type="submit" disabled={isLoading ? true : false}>
-                    Save
-                  </Button>
-                  <Button
-                    type="button"
-                    onClick={() => {
-                      setCanEdit(false);
-                    }}>
-                    Cancel
-                  </Button>
-                </Form>
-              </Title>
-            </>
-          ) : (
-            <>
-              <Title>
-                Welcome back <br />
-                {user.firstName} {user.lastName} !
-              </Title>
-              <Button
-                onClick={() => {
-                  setCanEdit(true);
-                }}>
-                Edit Name
+              {submitted && !inputValueIsOk && (
+                <Message delay="2000">Please enter your full name.</Message>
+              )}
+              <Button type="submit" disabled={isLoading ? true : false}>
+                Save
               </Button>
-            </>
-          )}
-        </Header>
-        <SubTitle className="sr-only">Accounts</SubTitle>
-        {accounts.map((account, index) => {
-          return (
-            <AccountItem
-              key={index}
-              title={account.title}
-              amount={account.amount}
-              amountDetails={account.amountDetails}
-            />
-          );
-        })}
-        {isLoading && <LoadingIcon />}
-        {isError && <Error />}
-      </Layout>
-    </>
+              <Button
+                type="button"
+                onClick={() => {
+                  setHandleUserEdit(false);
+                }}>
+                Cancel
+              </Button>
+            </Form>
+          </>
+        )}
+      </Header>
+
+      <SubTitle className="sr-only">Accounts</SubTitle>
+      {accounts.map((account, index) => {
+        return (
+          <AccountItem
+            key={index}
+            title={account.title}
+            amount={account.amount}
+            amountDetails={account.amountDetails}
+          />
+        );
+      })}
+      {isLoading && <LoadingIcon />}
+      {isError && <Error />}
+    </Layout>
   );
 };

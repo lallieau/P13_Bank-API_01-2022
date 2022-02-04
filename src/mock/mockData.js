@@ -1,3 +1,6 @@
+/**
+ * Mock data accounts for user profile page
+ */
 export const accounts = [
   {
     title: 'Argent Bank Checking (x8349)',
