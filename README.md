@@ -1,70 +1,104 @@
-# Getting Started with Create React App
+# P13_Bank-API_01-2022
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Openclassrooms - Parcours développeur Front-end
 
-## Available Scripts
+## Projet 13 : Utilisez une API pour un compte utilisateur bancaire avec React
 
-In the project directory, you can run:
+### Scénario :
 
-### `npm start`
+Le projet concerne une nouvelle banque qui démarre, Argent Bank, qui essaie de percer dans le secteur et qui a besoin d'aide pour mettre en place son application.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Phase 1 : Authentification des utilisateurs - Création d'une application web permettant aux clients de se connecter et de gérer leurs comptes et leur profil.
+Phase 2 : Transactions - Il s’agirait de spécifier les endpoints d’API nécessaires pour une éventuelle deuxième mission une fois que nous aurons terminé la première.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Mission :
 
-### `npm test`
+Un contrat en deux parties qui se décompose en plusieurs phases :
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Phase 1 : Authentification des utilisateurs :
 
-### `npm run build`
+Création d'une application Web permettant aux clients de se connecter et de gérer leurs comptes et leurs profils.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Créer l’application web complète et responsive avec React.
+- Utiliser Redux pour gérer le state de l'ensemble de l'application.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Ce que doit faire l’application :
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- L'utilisateur peut visiter la page d'accueil
+- L'utilisateur peut se connecter au système
+- L'utilisateur peut se déconnecter du système
+- L'utilisateur ne peut voir les informations relatives à son propre profil qu'après s'être connecté avec succès
+- L'utilisateur peut modifier le profil et conserver les données dans la base de données.
 
-### `npm run eject`
+#### Phase 2 : Transactions :
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Spécifier les points de terminaison de l'API nécessaires pour la partie transaction qui devrait permettre aux utilisateurs de :
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- visualiser toutes leurs transactions pour le mois en cours
+- visualiser les détails d'une transaction dans une autre vue
+- ajouter, modifier ou supprimer des informations sur les transactions.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Les éléments clés à spécifier pour chaque point de terminaison de l'API comprendront :
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- La méthode HTTP (par exemple, GET, POST, etc.)
+- La route (par exemple, /store/inventory)
+- La description de ce à quoi le point de terminaison correspond (par exemple : Retour de l'inventaire des animaux de compagnie)
+- Les paramètres possibles pour tenir compte des différents scénarios (par exemple, itemId (facultatif) = ID de l'article spécifique à demander à la base de données d'inventaire)
+- Les différentes réponses avec les codes de réponse correspondants qui ont un sens pour ce point de terminaison (par exemple, 404 : réponse d'erreur pour un article inconnu).
 
-## Learn More
+Le document doit être exporté vers un fichier YAML en utilisant la syntaxe Swagger.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Installation :
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Prérequis
 
-### Code Splitting
+- [NodeJS](https://nodejs.org/en/) Version 14.16.0
+- [npm](https://www.npmjs.com/) Version 6.14.11
+- [Visual Studio Code](https://code.visualstudio.com/) ou un autre IDE de votre choix
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Dependencies
 
-### Analyzing the Bundle Size
+- [React](https://reactjs.org/) Version 17.0.2
+- [React-router-dom](https://v5.reactrouter.com/web/guides/quick-start) Version 6.2.1
+- [Styled-components](https://styled-components.com/) Version 5.3.3
+- [Redux ToolKit](https://redux-toolkit.js.org/) Version 1.7.1
+- [React-redux](https://react-redux.js.org/) Version 7.2.6
+- [Redux](https://redux.js.org/) Version 4.1.2
+- [Helmet](https://github.com/nfl/react-helmet) Version 6.1.0
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Installation et exécution du projet
 
-### Making a Progressive Web App
+#### Backend Api
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Clonez l'Api Backend sur votre ordinateur : `https://github.com/lallieau/Project-10-Bank-API` ou `https://github.com/OpenClassrooms-Student-Center/Project-10-Bank-API`
 
-### Advanced Configuration
+- Suivez les instructions d'installation dans le fichier readme fourni.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+#### Frontend App
 
-### Deployment
+- Clonez ce référentiel sur votre ordinateur :
+  git clone https://github.com/lallieau/P13_Bank-API_01-2022.git
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- Dans ce dépôt, installez les paquets/dépendances : npm
 
-### `npm run build` fails to minify
+- Exécutez l'application frontale : npm start
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Attention, actuellement seulement deux utilisateurs.**
+
+**Tony Stark**
+
+First Name: Tony
+Last Name: Stark
+Email: tony@stark.com
+Password: password123
+
+**Steve Rogers**
+
+First Name: Steve
+Last Name: Rogers
+Email: steve@rogers.com
+Password: password456
+
+#### Phase 2 - Proposition - API Documentation
+
+Le document décrivant les API de transaction proposées, suivant les directives Swagger, se trouve dans le dossier "swagger".
